@@ -26,6 +26,12 @@ document.querySelector('#copy-email').addEventListener('click', async () => {
 });
 document.querySelector('#year').textContent = String(new Date().getFullYear());
 const me = document.querySelector('.me');
+const updateName = () => {
+  document.body.classList.toggle('scrolled', window.scrollY > 40);
+  if (window.scrollY <= 40) me.classList.remove('is-jelly');
+};
+window.addEventListener('scroll', updateName, { passive: true });
+updateName();
 me.addEventListener('click', () => {
   me.classList.remove('is-clicked');
   void me.offsetWidth;
@@ -37,6 +43,7 @@ me.addEventListener('animationend', e => {
 });
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const wobble = () => {
+    if (!document.body.classList.contains('scrolled')) return;
     me.classList.remove('is-jelly');
     void me.offsetWidth;
     me.classList.add('is-jelly');
@@ -48,6 +55,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   });
   if (matchMedia('(hover: hover)').matches) {
     window.addEventListener('pointermove', e => {
+      if (!document.body.classList.contains('scrolled')) return;
       const r = me.getBoundingClientRect();
       const dx = e.clientX - (r.left + r.width / 2);
       const dy = e.clientY - (r.top + r.height / 2);
