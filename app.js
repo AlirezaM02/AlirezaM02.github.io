@@ -25,3 +25,27 @@ document.querySelector('#copy-email').addEventListener('click', async () => {
   }
 });
 document.querySelector('#year').textContent = String(new Date().getFullYear());
+const me = document.querySelector('.me');
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const wobble = () => {
+    me.classList.remove('is-jelly');
+    void me.offsetWidth;
+    me.classList.add('is-jelly');
+  };
+  me.addEventListener('pointerenter', wobble);
+  me.addEventListener('click', wobble);
+  me.addEventListener('animationend', e => {
+    if (e.animationName === 'me-jelly') me.classList.remove('is-jelly');
+  });
+  if (matchMedia('(hover: hover)').matches) {
+    window.addEventListener('pointermove', e => {
+      const r = me.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      const dist = Math.hypot(dx, dy);
+      const pull = dist < 90 ? (1 - dist / 90) * 3 : 0;
+      me.style.setProperty('--px', `${(dx / (dist || 1)) * pull}px`);
+      me.style.setProperty('--py', `${(dy / (dist || 1)) * pull}px`);
+    }, { passive: true });
+  }
+}
