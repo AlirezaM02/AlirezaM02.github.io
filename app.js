@@ -26,6 +26,15 @@ document.querySelector('#copy-email').addEventListener('click', async () => {
 });
 document.querySelector('#year').textContent = String(new Date().getFullYear());
 const me = document.querySelector('.me');
+me.addEventListener('click', () => {
+  me.classList.remove('is-clicked');
+  void me.offsetWidth;
+  me.classList.add('is-clicked');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) setTimeout(() => me.classList.remove('is-clicked'), 750);
+});
+me.addEventListener('animationend', e => {
+  if (e.animationName === 'me-color-sweep') me.classList.remove('is-clicked');
+});
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const wobble = () => {
     me.classList.remove('is-jelly');
