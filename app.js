@@ -14,6 +14,20 @@ themeButton.addEventListener('click', () => {
   setTheme(next);
   try { localStorage.setItem('am-editorial-theme', next); } catch (_) {}
 });
+document.querySelector('#copy-email').addEventListener('click', async () => {
+  const status = document.querySelector('#copy-status');
+  try {
+    await navigator.clipboard.writeText('alirezamirzaei68@gmail.com');
+    status.textContent = 'Email copied.';
+    document.querySelector('#copy-email').classList.add('copied');
+    setTimeout(() => {
+      status.textContent = '';
+      document.querySelector('#copy-email').classList.remove('copied');
+    }, 2000);
+  } catch (_) {
+    status.textContent = 'Clipboard unavailable; select and copy the address above.';
+  }
+});
 document.querySelector('#year').textContent = String(new Date().getFullYear());
 const me = document.querySelector('.me');
 const updateName = () => {
