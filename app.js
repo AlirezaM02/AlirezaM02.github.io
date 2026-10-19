@@ -14,16 +14,6 @@ themeButton.addEventListener('click', () => {
   setTheme(next);
   try { localStorage.setItem('am-editorial-theme', next); } catch (_) {}
 });
-document.querySelector('#copy-email').addEventListener('click', async () => {
-  const status = document.querySelector('#copy-status');
-  try {
-    if (!navigator.clipboard) throw new Error('Clipboard unavailable');
-    await navigator.clipboard.writeText('alirezamirzaei68@gmail.com');
-    status.textContent = 'Email copied.';
-  } catch (_) {
-    status.textContent = 'Select and copy the email address above; clipboard access is unavailable.';
-  }
-});
 document.querySelector('#year').textContent = String(new Date().getFullYear());
 const me = document.querySelector('.me');
 const updateName = () => {
@@ -32,12 +22,7 @@ const updateName = () => {
 };
 window.addEventListener('scroll', updateName, { passive: true });
 updateName();
-document.addEventListener('click', e => {
-  const control = e.target.closest('.me,.site-header nav a,.action-link,.inline-link,.repo-links a,.contact-email,.copy-button,.theme,footer a,.work-item summary');
-  if (!control) return;
-  document.querySelector('.is-selected')?.classList.remove('is-selected');
-  control.classList.add('is-selected');
-});
+
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const wobble = () => {
     if (!document.body.classList.contains('scrolled')) return;
