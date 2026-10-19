@@ -58,3 +58,5 @@ body.scrolled .me.is-jelly{animation:me-drift 10s ease-in-out infinite,me-jelly 
 .intro .kicker{font-size:13.5px;letter-spacing:1px}
 #work{margin-top:2.8rem}
 @media(max-width:760px){.intro h1{font-size:clamp(34px,8.8vw,44px);line-height:1.08}.intro .kicker{font-size:10.5px;letter-spacing:.6px}}
+.intro-links{flex-wrap:wrap}
+@media(max-width:760px){.intro-links{gap:10px}}
