@@ -32,14 +32,11 @@ const updateName = () => {
 };
 window.addEventListener('scroll', updateName, { passive: true });
 updateName();
-me.addEventListener('click', () => {
-  me.classList.remove('is-clicked');
-  void me.offsetWidth;
-  me.classList.add('is-clicked');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) setTimeout(() => me.classList.remove('is-clicked'), 750);
-});
-me.addEventListener('animationend', e => {
-  if (e.animationName === 'me-color-sweep') me.classList.remove('is-clicked');
+document.addEventListener('click', e => {
+  const control = e.target.closest('.me,.site-header nav a,.action-link,.inline-link,.repo-links a,.contact-email,.copy-button,.theme,footer a,.work-item summary');
+  if (!control) return;
+  document.querySelector('.is-selected')?.classList.remove('is-selected');
+  control.classList.add('is-selected');
 });
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const wobble = () => {
@@ -49,7 +46,6 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     me.classList.add('is-jelly');
   };
   me.addEventListener('pointerenter', wobble);
-  me.addEventListener('click', wobble);
   me.addEventListener('animationend', e => {
     if (e.animationName === 'me-jelly') me.classList.remove('is-jelly');
   });
